@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teste</title>
+    <style>
+      .clock {
+        padding: 2rem;
+        font-size: 2rem;
+        font-weight: 600;
+        font-family: Arial, Helvetica, sans-serif;
+
+        > * {
+          color: white;
+          background-color: black;
+          border: solid 1px rgba(0, 0, 0, 0.5);
+          border-radius: 0.75rem;
+          padding: 1rem;
+          box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2),
+            0px 1px 4px 0px rgba(0, 0, 0, 0.1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const root = document.getElementById("root");
+
+      const clock = document.createElement("div");
+      clock.className = "clock";
+
+      const today = new Date();
+
+      setInterval(() => {
+        const today = new Date();
+        const hours = today.getHours();
+        const minutes = today.getMinutes();
+        const seconds = today.getSeconds();
+
+        clock.innerHTML = `
+        <span class="hours">${hours < 10 ? "0" + hours : hours}</span> :
+        <span class="minutes">${minutes < 10 ? "0" + minutes : minutes}</span> :
+        <span class="seconds">${seconds < 10 ? "0" + seconds : seconds}</span>
+    `;
+      }, 1000);
+
+      root.appendChild(clock);
+    </script>
+  </body>
+</html>
