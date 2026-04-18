@@ -1,25 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Teste</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cookie&family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      .clock {
+      /* .clock {
         padding: 2rem;
         font-size: 2rem;
         font-weight: 600;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: "Lexend", sans-serif;
 
         > * {
-          color: white;
-          background-color: black;
+          color: #fab387;
+          background-color: #f9e2af;
           border: solid 1px rgba(0, 0, 0, 0.5);
           border-radius: 0.75rem;
           padding: 1rem;
-          box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2),
+          box-shadow:
+            0px 1px 4px 0px rgba(0, 0, 0, 0.2),
             0px 1px 4px 0px rgba(0, 0, 0, 0.1);
         }
+      } */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .clock {
+        --clock-color-1: #eba0ac;
+        --clock-color-2: #f2cdcd;
+        --clock-color-3: #f38ba8;
+
+        position: relative;
+        padding: 1.5rem 4rem 1.5rem 4rem;
+        width: fit-content;
+
+        /* Font */
+        font-size: 10rem;
+        font-weight: 600;
+        line-height: 1;
+        font-family: "Lexend", sans-serif;
+        text-align: end;
+
+        /* Colors */
+        color: var(--clock-color-1);
+        background-color: rgb(from var(--clock-color-2) r g b / 0.3);
+
+        /* Pattern */
+        background-image:
+          linear-gradient(45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%),
+          linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.4) 25%,
+            transparent 25%
+          ),
+          linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.4) 75%),
+          linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.4) 75%);
+        background-size: clamp(75px, 1.5vw, 18px) clamp(75px, 1.5vw, 18px);
+        background-position: center;
+
+        /* Border */
+        border: solid 25px var(--clock-color-3);
+        border-radius: 20px;
+
+        .date {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          left: 1rem;
+          bottom: 1rem;
+
+          text-align: left;
+          font-size: 1.5rem;
+          font-weight: 400;
+
+          color: oklch(from var(--clock-color-3) calc(l - 0.25) c h);
+
+          .day-of-week {
+            font-family: "Cookie", cursive;
+            font-size: 5rem;
+            text-transform: lowercase;
+          }
+
+          .month-day {
+            text-transform: uppercase;
+            margin-top: -20px;
+          }
+        }
+      }
+
+      .blue {
+        --clock-color-1: #74c7ec;
+        --clock-color-2: #89dceb;
+        --clock-color-3: #89b4fa;
+      }
+
+      .green {
+        --clock-color-1: #a6e3a1;
+        --clock-color-2: #f9e2af;
+        --clock-color-3: #94e2d5;
+      }
+
+      .yellow {
+        --clock-color-1: #f9e2af;
+        --clock-color-2: #f5e0dc;
+        --clock-color-3: #fab387;
+      }
+
+      .purple {
+        --clock-color-1: #f5c2e7;
+        --clock-color-2: #f2cdcd;
+        --clock-color-3: #cba6f7;
       }
     </style>
   </head>
@@ -37,13 +136,19 @@
         const today = new Date();
         const hours = today.getHours();
         const minutes = today.getMinutes();
-        const seconds = today.getSeconds();
+        const dayOfWeek = today.toLocaleDateString("en-US", {
+          weekday: "long",
+        });
+        const month = today.toLocaleDateString("en-US", { month: "long" });
+        const day = today.getDate();
 
         clock.innerHTML = `
         <span class="hours">${hours < 10 ? "0" + hours : hours}</span> :
-        <span class="minutes">${minutes < 10 ? "0" + minutes : minutes}</span> :
-        <span class="seconds">${seconds < 10 ? "0" + seconds : seconds}</span>
-    `;
+        <span class="minutes">${minutes < 10 ? "0" + minutes : minutes}</span>
+        <div class="date">
+          <span class="day-of-week">${dayOfWeek}</span>
+          <span class="month-day">${month} ${day}</span>
+        </div>`;
       }, 1000);
 
       root.appendChild(clock);
