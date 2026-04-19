@@ -11,23 +11,6 @@
       rel="stylesheet"
     />
     <style>
-      /* .clock {
-        padding: 2rem;
-        font-size: 2rem;
-        font-weight: 600;
-        font-family: "Lexend", sans-serif;
-
-        > * {
-          color: #fab387;
-          background-color: #f9e2af;
-          border: solid 1px rgba(0, 0, 0, 0.5);
-          border-radius: 0.75rem;
-          padding: 1rem;
-          box-shadow:
-            0px 1px 4px 0px rgba(0, 0, 0, 0.2),
-            0px 1px 4px 0px rgba(0, 0, 0, 0.1);
-        }
-      } */
       * {
         margin: 0;
         padding: 0;
@@ -39,12 +22,18 @@
         --clock-color-2: #f2cdcd;
         --clock-color-3: #f38ba8;
 
+        /* Layout */
+        display: flex;
         position: relative;
-        padding: 1.5rem 4rem 1.5rem 4rem;
-        width: fit-content;
+        width: 100%;
+        padding: 1rem;
+        aspect-ratio: 12 / 5;
+        container-type: size;
+        align-items: center;
+        justify-content: flex-end;
 
         /* Font */
-        font-size: 10rem;
+        font-size: 30cqw;
         font-weight: 600;
         line-height: 1;
         font-family: "Lexend", sans-serif;
@@ -72,25 +61,30 @@
         border-radius: 20px;
 
         .date {
+          /* Layout */
           display: flex;
           flex-direction: column;
           position: absolute;
           left: 1rem;
           bottom: 1rem;
+          width: 100%;
+          container-type: inline-size;
 
+          /* Font */
           text-align: left;
-          font-size: 1.5rem;
           font-weight: 400;
-
+          
+          /* Colors */
           color: oklch(from var(--clock-color-3) calc(l - 0.25) c h);
-
+          
           .day-of-week {
             font-family: "Cookie", cursive;
-            font-size: 5rem;
+            font-size: 16cqw;
             text-transform: lowercase;
           }
-
+          
           .month-day {
+            font-size: 3.5cqw;
             text-transform: uppercase;
             margin-top: -20px;
           }
@@ -150,6 +144,24 @@
           <span class="month-day">${month} ${day}</span>
         </div>`;
       }, 1000);
+
+      const params = new URLSearchParams(window.location.search);
+      const color = params.get("color");
+
+      switch (color) {
+        case "blue":
+          clock.classList.add("blue");
+          break;
+        case "green":
+          clock.classList.add("green");
+          break;
+        case "yellow":
+          clock.classList.add("yellow");
+          break;
+        case "purple":
+          clock.classList.add("purple");
+          break;
+      }
 
       root.appendChild(clock);
     </script>
