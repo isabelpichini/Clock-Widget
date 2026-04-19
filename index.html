@@ -25,15 +25,17 @@
         /* Layout */
         display: flex;
         position: relative;
+        min-width: 400px;
         width: 100%;
-        padding: 1rem;
+        max-width: 650px;
         aspect-ratio: 12 / 5;
         container-type: size;
         align-items: center;
         justify-content: flex-end;
+        justify-self: center;
 
         /* Font */
-        font-size: 30cqw;
+        font-size: clamp(4px, 1vw, 6.5px);
         font-weight: 600;
         line-height: 1;
         font-family: "Lexend", sans-serif;
@@ -57,36 +59,42 @@
         background-position: center;
 
         /* Border */
-        border: solid 25px var(--clock-color-3);
+        border: solid 4em var(--clock-color-3);
         border-radius: 20px;
+
+        .time {
+          font-size: 30cqw;
+        }
 
         .date {
           /* Layout */
           display: flex;
           flex-direction: column;
           position: absolute;
-          left: 1rem;
-          bottom: 1rem;
+          left: 1em;
+          bottom: 1em;
           width: 100%;
           container-type: inline-size;
+          gap: -0.1em;
 
           /* Font */
           text-align: left;
           font-weight: 400;
-          
+          font-size: 1cqw;
+
           /* Colors */
           color: oklch(from var(--clock-color-3) calc(l - 0.25) c h);
-          
+
           .day-of-week {
             font-family: "Cookie", cursive;
             font-size: 16cqw;
             text-transform: lowercase;
+            line-height: 0.6;
           }
-          
+
           .month-day {
             font-size: 3.5cqw;
             text-transform: uppercase;
-            margin-top: -20px;
           }
         }
       }
@@ -137,8 +145,7 @@
         const day = today.getDate();
 
         clock.innerHTML = `
-        <span class="hours">${hours < 10 ? "0" + hours : hours}</span> :
-        <span class="minutes">${minutes < 10 ? "0" + minutes : minutes}</span>
+        <span class="time">${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}</span>
         <div class="date">
           <span class="day-of-week">${dayOfWeek}</span>
           <span class="month-day">${month} ${day}</span>
